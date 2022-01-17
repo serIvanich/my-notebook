@@ -1,0 +1,35 @@
+
+.tableContainer {
+    display: table;
+    table-layout: fixed;
+    border-collapse: separate;
+    border-spacing: 0 7px;
+    width: 100%;
+    padding-top: 20px;
+}
+
+.tableHeader {
+    display: table-header-group;
+
+    background-color: gray;
+    color: ghostwhite;
+}
+
+.tableRowGroup {
+    display: table-row-group;
+}
+
+.tableRow {
+   display: table-row;
+    background-color: beige;
+    border: 2px solid gray;
+
+}
+
+.tableCell {
+    display: table-cell;
+    padding: 10px;
+
+
+}
+

@@ -1,6 +1,6 @@
 import {applyMiddleware, combineReducers, createStore} from "redux";
 import thunk from "redux-thunk";
-import {notesReducer} from "./notes-reducer";
+import {notesReducer} from "./notes-reduser/notes-reducer";
 
 const reducers = combineReducers({
     notes: notesReducer,

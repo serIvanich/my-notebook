@@ -40,24 +40,3 @@ function App() {
 }
 
 export default App;
-
-
-// <div className="notes" id="notes">
-//     <div className="notes__table-header">
-//         NOT NOTES
-//     </div>
-//
-// </div>
-// <div className="button-container">
-//     <button className="button-open-Modal" id="button-form">create note</button>
-// </div>
-// <div className="categories">
-//     <div className="categories__header">
-//         <div className="categories__header-category">category</div>
-//         <div className="categories__header-active">active</div>
-//         <div className="categories__header-archive">archive</div>
-//     </div>
-//     <div className="categories__content">
-//
-//     </div>
-// </div>

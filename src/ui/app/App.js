@@ -7,20 +7,27 @@ import {NotesTable} from "../features/NotesTable";
 
 function App() {
 
-    const [isModal, setIsModal] = useState(true)
+    const [isModal, setIsModal] = useState(false)
+    const [currentNoteId, setCurrentNoteId] = useState(null)
+    let modalData = []
+
+    if (isModal) {
+
+        modalData = failState.find(n => n.id === currentNoteId)
+    }
     const changeIsModal = () => {
         setIsModal(!isModal)
     }
 
     return (
         <div className={s.app}>
-            <NotesTable data={failState}/>
+            <NotesTable data={failState} setCurrentNoteId={setCurrentNoteId} setIsModal={setIsModal}/>
             <div className={s.buttonContainer}>
                 <button className={s.buttonModal} onClick={changeIsModal}>Create Note</button>
 
             </div>
             <SummaryTable data={failState}/>
-            {isModal && <Modal isModal={isModal} changeIsModal={changeIsModal} data={failState[2]}/>}
+            {isModal && <Modal isModal={isModal} changeIsModal={changeIsModal} data={modalData}/>}
         </div>
     );
 }

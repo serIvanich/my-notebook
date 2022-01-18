@@ -1,15 +1,21 @@
 import React from "react";
 import {Table} from "../common/Table/Table";
+import {TableContainer} from "../common/Table/TableContainer";
 
 
-export const NotesTable = ({data}) => {
+export const NotesTable = ({data, setCurrentNoteId, setIsModal}) => {
     const notesArr = []
 
 
     function createNotesData(obj) {
 
-        const onClickButton = (e) => {
-            console.log(`notes ${e}`)
+        const buttonCallback = (e, id) => {
+            if(id) {
+                setCurrentNoteId(id)
+            }
+            setIsModal(true)
+            console.log(e.currentTarget.dataset.set)
+            console.log(id)
         }
 
 
@@ -20,6 +26,7 @@ export const NotesTable = ({data}) => {
 
 
         const resultObj = {
+            currentId: obj.id,
             imgCategory:  obj.category,
             name: obj.title,
             created: obj.created,
@@ -27,15 +34,8 @@ export const NotesTable = ({data}) => {
             content: obj.content,
             dates,
             buttons: {
-                buttonsHeader: {
-                    buttonArchive: onClickButton,
-                    buttonDelete: onClickButton,
-                },
-                buttonsContent: {
-                    buttonEdit: onClickButton,
-                    buttonArchive: onClickButton,
-                    buttonDelete: onClickButton,
-                },
+                buttonCallback
+
             },
         }
         notesArr.push(resultObj)
@@ -45,7 +45,7 @@ export const NotesTable = ({data}) => {
 
     return (
         <div>
-            <Table data={notesArr}/>
+            <TableContainer data={notesArr}/>
         </div>
     )
 }

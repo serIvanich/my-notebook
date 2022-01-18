@@ -8,6 +8,7 @@ export const Table = ({header, content}) => {
 
     return (
         <div className={s.tableContainer}>
+
             <div className={s.tableHeader}>
                 {header}
             </div>

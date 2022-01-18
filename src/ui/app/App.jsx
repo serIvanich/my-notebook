@@ -23,7 +23,7 @@ function App() {
         <div className={s.app}>
             <NotesTable data={failState} setCurrentNoteId={setCurrentNoteId} setIsModal={setIsModal}/>
             <div className={s.buttonContainer}>
-                <button className={s.buttonModal} onClick={changeIsModal}>Create Note</button>
+                <button className={s.buttonModal} onClick={changeIsModal}>Create New Note</button>
 
             </div>
             <SummaryTable data={failState}/>

@@ -1,37 +1,86 @@
 
 .tableContainer {
-    display: table;
-    table-layout: fixed;
-    border-collapse: separate;
-    border-spacing: 0 7px;
-    width: 100%;
-    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    min-height: 350px;
+    min-width: 100%;
+    margin: 20px auto;
 }
 
-
 .tableHeader {
-    display: table-header-group;
-
+    display: flex;
+    margin-bottom: 7px;
+    border-radius: 7px;
     background-color: gray;
     color: ghostwhite;
 }
 
+.tableHeader :first-child {
+    flex: 0.3;
+}
+
 .tableRowGroup {
-    display: table-row-group;
+    display: flex;
+    flex-direction: column;
+    align-content: space-around;
 }
 
 .tableRow {
-   display: table-row;
+    display: flex;
+    margin-bottom: 10px;
     background-color: beige;
-    border: 2px solid gray;
+    border-radius: 7px;
+}
 
+.tableRow :first-child {
+    flex: 0.3;
 }
 
 .tableCell {
-    display: table-cell;
+    flex: 1;
     padding: 10px;
-
-
 }
 
+@media screen and (max-width: 600px) {
+    .tableContainer {
+        flex-direction: row;
+        justify-content: center;
+        height: 1px;
+    }
+
+    .tableHeader {
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .tableRowGroup {
+        flex: 2;
+        overflow-y: scroll;
+    }
+
+    .tableRow {
+        flex-direction: column;
+        min-height: 100%;
+    }
+
+    .tableRow .tableCell {
+        border-bottom: 2px solid white;
+    }
+
+    .tableHeader :first-child {
+        border-bottom: none;
+    }
+
+    .tableCell {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+/*@media screen and (max-width: 400px) {*/
+/*    .tableContainer {*/
+/*        margin: 20px 0;*/
+/*    }*/
+/*}*/
 

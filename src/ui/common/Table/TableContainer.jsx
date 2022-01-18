@@ -13,7 +13,7 @@ export const TableContainer = ({data}) => {
     const withoutCurrentIdKeys = keys.filter(k => k !== 'currentId')
     const headerTable = withoutCurrentIdKeys.map((key, ind) => {
         if (key === 'imgCategory') {
-            return <div key={key + ind} className={s.tableCell} style={{width: '3%'}}></div>
+            return <div key={key + ind} className={s.tableCell}> </div>
         } else if (key === 'buttons') {
             const buttonCallback = data[ind].buttons.buttonCallback
 

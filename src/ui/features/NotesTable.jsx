@@ -1,5 +1,4 @@
 import React from "react";
-import {Table} from "../common/Table/Table";
 import {TableContainer} from "../common/Table/TableContainer";
 
 
@@ -10,7 +9,7 @@ export const NotesTable = ({data, setCurrentNoteId, setIsModal}) => {
     function createNotesData(obj) {
 
         const buttonCallback = (e, id) => {
-            if(id) {
+            if (id) {
                 setCurrentNoteId(id)
             }
             setIsModal(true)
@@ -27,7 +26,7 @@ export const NotesTable = ({data, setCurrentNoteId, setIsModal}) => {
 
         const resultObj = {
             currentId: obj.id,
-            imgCategory:  obj.category,
+            imgCategory: obj.category,
             name: obj.title,
             created: obj.created,
             category: obj.category,

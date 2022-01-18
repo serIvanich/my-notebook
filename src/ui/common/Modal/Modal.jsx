@@ -36,7 +36,7 @@ export const Modal = ({changeIsModal, data}) => {
         return errors;
     }
 
-    const submitForm = (values, formikHelpers) => {
+    const submitForm = (values) => {
         console.log(values)
         formik.resetForm()
         changeIsModal()

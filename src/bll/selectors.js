@@ -1,3 +1,6 @@
 
-export const getNotes = state => state.notes.notes
+export const getNotesSelector = state =>{
+
+    return state.notes.notes
+}
 

@@ -1,0 +1,10 @@
+
+
+.preloaderStyle {
+    display: flex;
+    justify-content: center;
+    height: 15vh;
+    background-color: whitesmoke;
+    opacity: 0.8;
+}
+

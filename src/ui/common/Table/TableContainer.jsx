@@ -3,43 +3,62 @@ import s from './Table.module.css'
 import {BiArchiveOut, BiPencil, BiTrashAlt} from "react-icons/bi";
 import {FcDecision, FcIdea, FcList, FcReddit} from "react-icons/fc";
 import {Table} from "./Table";
+import {manufacturerID} from "../../app/App";
 
 
-export const TableContainer = ({data}) => {
+export const TableContainer = ({dataTable}) => {
+
+    let headerTable = []
 
 
-    const keys = Object.keys(data[0])
-
-    const withoutCurrentIdKeys = keys.filter(k => k !== 'currentId')
-    const headerTable = withoutCurrentIdKeys.map((key, ind) => {
-        if (key === 'imgCategory') {
-            return <div key={key + ind} className={s.tableCell}> </div>
-        } else if (key === 'buttons') {
-            const buttonCallback = data[ind].buttons.buttonCallback
-
-
-            return <div key={ind} className={s.tableCell} style={{textAlign: "right"}}>
-                <button data-set='archive-all' onClick={buttonCallback}><BiArchiveOut/></button>
-                <button data-set='delete-all' onClick={buttonCallback}><BiTrashAlt/></button>
-            </div>
-        } else {
-            return <div key={key + ind} className={s.tableCell}>{key}</div>
+    const content = dataTable.map(note => {
+        const copyNote = {...note}
+        let currentId
+        if (note.currentId) {
+            currentId = note.currentId
+            delete copyNote.currentId
         }
+
+        const headerItems = Object.keys(copyNote)
+
+        if (headerTable.length < headerItems.length) {
+            let buttonCallBack
+            if (note.buttons) {
+                buttonCallBack = note.buttons.buttonCallback
+            }
+            headerTable = headerItems.map(item => createHeaderItem(item, buttonCallBack))
+
+        }
+
+        const rowTable = createContentItem(note, headerItems, currentId)
+        return <div key={manufacturerID()} className={s.tableRow}>{rowTable}</div>
+
+
     })
 
-    const contentTable = data.map((el, ind) => {
-        let currentId
-        let copyElement = {...el}
 
-        if (el.currentId) {
-            currentId = el.currentId
-            delete copyElement.currentId
+    function createHeaderItem(item, buttonCallback) {
+        const id = manufacturerID()
+        if (item === 'imgCategory') {
+            return (<div key={id} className={s.tableCell}> </div>)
+        } else if (item === 'buttons') {
+            return (<div key={id} className={s.tableCell} style={{textAlign: "right"}}>
+                <button data-set='archive-all' onClick={buttonCallback}><BiArchiveOut/></button>
+                <button data-set='delete-all' onClick={buttonCallback}><BiTrashAlt/></button>
+            </div>)
+        } else {
+            return (<div key={id} className={s.tableCell}>{item}</div>)
         }
-        const rowTable = Object.keys(copyElement).map((key, indexNote) => {
-            if (key === 'imgCategory') {
+    }
+
+    function createContentItem(note, items, currentId) {
+
+       return   items.map(item => {
+            const id = manufacturerID()
+            if (item === 'imgCategory') {
 
                 let imgCategory
-                switch (el.category) {
+                switch (note.category) {
                     case 'task':
                         imgCategory = <FcList/>
                         break
@@ -52,35 +71,37 @@ export const TableContainer = ({data}) => {
                     case 'idea':
                         imgCategory = <FcIdea/>
                         break
+                    default:
+                        break
                 }
-                return <div key={key + indexNote} className={s.tableCell}>
-                    {imgCategory}
-                </div>
+                return (<div key={id} className={s.tableCell}>{imgCategory}</div>)
 
-            } else if (key === 'buttons') {
+            } else if (item === 'buttons') {
 
                 const buttonCallback = (e) => {
 
-                    el.buttons.buttonCallback(e, currentId)
+                    note.buttons.buttonCallback(e, currentId)
                 }
 
-                return <div key={key + indexNote} className={s.tableCell} style={{textAlign: "right"}}>
+                return (<div key={id} className={s.tableCell} style={{textAlign: "right"}}>
                     <button data-set='edit-note' onClick={buttonCallback}><BiPencil data-set='edit-note'/></button>
                     <button data-set='archive-note' onClick={buttonCallback}><BiArchiveOut data-set='archive-note'/>
                     </button>
                     <button data-set='delete-note' onClick={buttonCallback}><BiTrashAlt data-set='delete-note'/>
                     </button>
-                </div>
+                </div>)
             } else {
-                return <div key={key + indexNote} className={s.tableCell}>
-                    {el[key].length > 20 ? el[key].slice(0, 20) : el[key]}
-                </div>
+                return (<div key={id} className={s.tableCell}>
+                    {note[item].length > 20 ? note[item].slice(0, 20) : note[item]}
+                </div>)
             }
+
         })
-        return <div key={ind} className={s.tableRow}>{rowTable}</div>
-    })
+    }
+
 
     return (
-        <Table header={headerTable} content={contentTable}/>
+        <Table header={headerTable} content={content}/>
     )
+
 }

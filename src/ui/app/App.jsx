@@ -1,38 +1,42 @@
 import s from './App.module.css';
-import {failState} from "../../bll/fail-state";
 import {SummaryTable} from "../features/SummaryTable";
 import {Modal} from "../common/Modal/Modal";
 import {useEffect, useState} from "react";
 import {NotesTable} from "../features/NotesTable";
 import {useDispatch, useSelector} from "react-redux";
-import {getNotes} from "../../bll/selectors";
-import {action} from "../../bll/notes-reduser/notes-reducer";
+import {action, getNotes} from "../../bll/notes-reduser/notes-reducer";
+import {getNotesSelector} from "../../bll/selectors";
+import {Preloader} from "../common/preloader/Preloader";
+
+export const manufacturerID = () => Math.floor(Math.random() * 1000000)
 
 function App() {
     const dispatch = useDispatch()
     const [isModal, setIsModal] = useState(false)
     const [currentNoteId, setCurrentNoteId] = useState(0)
     let modalData = []
-    const notes = useSelector((state) => getNotes(state))
+    const notes = useSelector((state) => getNotesSelector(state))
 
     useEffect(() => {
 
-    })
+            dispatch(getNotes())
+
+    }, [])
 
     const closeModal = () => {
         setIsModal(false)
     }
 
     const openIsModal = (id) => {
-
         if (Number.isInteger(id)) {
             setCurrentNoteId(id)
         }
+
         setIsModal(true)
     }
 
     const createNewNote = (data) => {
-        const noteId = Math.floor(Math.random() * 10000)
+        const noteId = manufacturerID()
         const dateCreated = new Date().toISOString()
         const newNote = {
             id: noteId,
@@ -55,18 +59,27 @@ function App() {
         }
         setIsModal(false)
     }
+    const deleteNote = (id) => {
+        dispatch(action.deleteNote(id))
+    }
 
     if (isModal) {
         modalData = notes.find(n => n.id === currentNoteId)
     }
+
+    if(!notes.length) {
+        return <Preloader/>
+    }
+
     return (
         <div className={s.app}>
-            <NotesTable data={notes} openIsModal={openIsModal}/>
+            <NotesTable notes={notes} setCurrentNoteId={setCurrentNoteId}
+                        openIsModal={openIsModal} deleteNote={deleteNote}/>
             <div className={s.buttonContainer}>
                 <button className={s.buttonModal} onClick={openIsModal}>Create New Note</button>
 
             </div>
-            <SummaryTable data={notes}/>
+            <SummaryTable notes={notes}/>
             {
                 isModal && <Modal addNote={addNote} closeModal={closeModal}
                                   data={modalData}/>

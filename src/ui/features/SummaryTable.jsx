@@ -1,7 +1,7 @@
 import React from "react";
 import {TableContainer} from "../common/Table/TableContainer";
 
-export const SummaryTable = ({data}) => {
+export const SummaryTable = ({notes}) => {
     const summaryArr = []
 
     function createSummaryData(obj) {
@@ -23,11 +23,11 @@ export const SummaryTable = ({data}) => {
 
     }
 
-    data.forEach(obj => createSummaryData(obj))
+    notes.forEach(obj => createSummaryData(obj))
 
     return (
         <div>
-            <TableContainer data={summaryArr}/>
+            <TableContainer dataTable={summaryArr}/>
         </div>
     )
 }

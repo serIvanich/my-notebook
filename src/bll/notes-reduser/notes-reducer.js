@@ -1,15 +1,21 @@
-import {failState} from "../fail-state";
+import {getNotesApi} from "../../api/fail-api";
 
+const GET_NOTE = 'NOTES/GET-NOTE'
 const ADD_NOTE = 'NOTES/ADD-NOTE'
 const DELETE_NOTE = 'NOTES/DELETE-NOTE'
 
 const initialState = {
-    notes: [...failState],
+    notes: [],
 }
 
 export const notesReducer = (state = initialState, action) => {
 
     switch (action.type) {
+        case GET_NOTE:
+            return {
+                ...state,
+                notes:[...action.notes]
+            }
         case ADD_NOTE:
 
             return {
@@ -17,11 +23,12 @@ export const notesReducer = (state = initialState, action) => {
                 notes: [...state.notes, action.note]
             }
         case DELETE_NOTE:
-
-            return {
+const newSt = state.notes.filter(n => n.id !== action.id)
+            const nState ={
                 ...state,
-                notes: state.notes.filter(n => n.id !== action.id)
+                notes: [...newSt]
             }
+            return nState
         default:
             return state
     }
@@ -30,10 +37,27 @@ export const notesReducer = (state = initialState, action) => {
 }
 
 export const action = {
+    getNotes: (notes) => {
+        return {type: GET_NOTE, notes}
+    },
     addNote: (note) => {
         return {type: ADD_NOTE, note}
     },
     deleteNote: (id) => {
         return {type: DELETE_NOTE, id}
     }
+}
+
+export const getNotes = () => async(dispatch) => {
+    try{
+
+        const data = await getNotesApi()
+        dispatch(action.getNotes(data))
+
+    }
+    catch (e) {
+        console.log(e)
+    }
+
+
 }

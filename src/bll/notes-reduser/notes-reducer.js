@@ -1,6 +1,7 @@
 import {getNotesApi} from "../../api/fail-api";
 
-const GET_NOTE = 'NOTES/GET-NOTE'
+const GET_NOTES = 'NOTES/GET-NOTES'
+const UPDATE_BODY_NOTE = 'NOTES/UPDATE-BODY-NOTE'
 const ADD_NOTE = 'NOTES/ADD-NOTE'
 const DELETE_NOTE = 'NOTES/DELETE-NOTE'
 
@@ -11,10 +12,10 @@ const initialState = {
 export const notesReducer = (state = initialState, action) => {
 
     switch (action.type) {
-        case GET_NOTE:
+        case GET_NOTES:
             return {
                 ...state,
-                notes:[...action.notes]
+                notes: [...action.notes]
             }
         case ADD_NOTE:
 
@@ -22,13 +23,21 @@ export const notesReducer = (state = initialState, action) => {
                 ...state,
                 notes: [...state.notes, action.note]
             }
+        case UPDATE_BODY_NOTE:
+            const updateNote = state.notes.map(note => note.id === action.payload.id
+                ? Object.assign(note, action.payload.body)
+                :note )
+            return {
+                ...state,
+                notes: updateNote
+            }
         case DELETE_NOTE:
-const newSt = state.notes.filter(n => n.id !== action.id)
-            const nState ={
+            const newSt = state.notes.filter(n => n.id !== action.id)
+            return {
                 ...state,
                 notes: [...newSt]
             }
-            return nState
+
         default:
             return state
     }
@@ -38,24 +47,27 @@ const newSt = state.notes.filter(n => n.id !== action.id)
 
 export const action = {
     getNotes: (notes) => {
-        return {type: GET_NOTE, notes}
+        return {type: GET_NOTES, notes}
     },
     addNote: (note) => {
         return {type: ADD_NOTE, note}
+    },
+    updateNote: (id, data) => {
+        const payload = {id,data}
+        return {type: UPDATE_BODY_NOTE, payload}
     },
     deleteNote: (id) => {
         return {type: DELETE_NOTE, id}
     }
 }
 
-export const getNotes = () => async(dispatch) => {
-    try{
+export const getNotes = () => async (dispatch) => {
+    try {
 
         const data = await getNotesApi()
         dispatch(action.getNotes(data))
 
-    }
-    catch (e) {
+    } catch (e) {
         console.log(e)
     }
 

@@ -67,5 +67,24 @@ test('note should be deleted from state', () => {
     expect(newState.notes[0].id).toBe(14)
 })
 
+test('note should be correct update', () => {
+
+    const updateBody = {
+            title: 'new title',
+        created: '13.01.2022',
+        category: 'idea',
+        content: 'I’m gonna have a dentist appointment on the 3/5/2021, I moved it from 5/5/2021.Was updating 19.01.2022',
+        isArchive: false,
+    }
+
+    const action = {type:'NOTES/UPDATE-BODY-NOTE', payload:{id: 13, body: updateBody}}
+
+    const newState = notesReducer(state, action)
+
+    expect(newState.notes.length).toBe(3)
+    expect(state.notes[0].title).toBe('new title')
+    expect(newState.notes[0].id).toBe(13)
+})
+
 
 

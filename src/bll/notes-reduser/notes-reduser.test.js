@@ -1,4 +1,4 @@
-import {action, notesReducer} from "./notes-reducer";
+import {notesReducer} from "./notes-reducer";
 
 let state
 
@@ -36,7 +36,7 @@ beforeEach(() => {
     }
 })
 
-test('note should be added to notes ', () => {
+test('note should be added to notes', () => {
 
     const newNote = {
         id: 22,
@@ -51,5 +51,8 @@ test('note should be added to notes ', () => {
     const newState = notesReducer(state, action)
     expect(newState.notes.length).toBe(4)
     expect(state.notes.length).toBe(3)
+    expect(newState.notes[3].id).toBe(22)
 })
+
+
 

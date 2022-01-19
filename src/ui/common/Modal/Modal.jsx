@@ -3,7 +3,7 @@ import s from './Modal.module.css'
 import {useFormik} from "formik";
 import {BiX} from "react-icons/bi";
 
-export const Modal = ({changeIsModal, data}) => {
+export const Modal = ({addNote, data, closeModal}) => {
 
     const initialCategory = data?.category ? data.category : 'task'
     const initialTitle = data?.title ? data.title : ''
@@ -37,9 +37,11 @@ export const Modal = ({changeIsModal, data}) => {
     }
 
     const submitForm = (values) => {
+
+        addNote(values)
         console.log(values)
         formik.resetForm()
-        changeIsModal()
+
     }
 
     const formik = useFormik({
@@ -51,7 +53,7 @@ export const Modal = ({changeIsModal, data}) => {
     return (
         <div className={s.modalContainer}>
             <div className={s.modalForm}>
-                <div className={s.closeForm} onClick={changeIsModal}><BiX/></div>
+                <div className={s.closeForm} onClick={closeModal}><BiX/></div>
                 <form onSubmit={formik.handleSubmit}>
                     <input name='title'
                            type="text"

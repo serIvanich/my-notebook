@@ -25,7 +25,7 @@ export const notesReducer = (state = initialState, action) => {
             }
         case UPDATE_BODY_NOTE:
             const updateNote = state.notes.map(note => note.id === action.payload.id
-                ? Object.assign(note, action.payload.body)
+                ? Object.assign(note, action.payload.data)
                 :note )
             return {
                 ...state,
@@ -53,6 +53,7 @@ export const action = {
         return {type: ADD_NOTE, note}
     },
     updateNote: (id, data) => {
+
         const payload = {id,data}
         return {type: UPDATE_BODY_NOTE, payload}
     },

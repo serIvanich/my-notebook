@@ -2,7 +2,7 @@ import React from "react";
 import {TableContainer} from "../common/Table/TableContainer";
 
 
-export const NotesTable = ({notes, openIsModal, deleteNote,}) => {
+export const NotesTable = ({notes, openIsModal, changeArchive, deleteNote, showArchive, showArchiveNotes,}) => {
 
     const dataNotesTable = []
 
@@ -16,6 +16,12 @@ export const NotesTable = ({notes, openIsModal, deleteNote,}) => {
             openIsModal(id)
         } else if (datasetButton === 'delete-note') {
             deleteNote(id)
+        } else if (datasetButton === 'archive-note') {
+            changeArchive(id)
+        } else if (datasetButton === 'archive-all') {
+            showArchiveNotes()
+        } else if (datasetButton === 'delete-all') {
+
         }
         console.log(e.currentTarget.dataset.set)
         console.log(id)
@@ -26,7 +32,7 @@ export const NotesTable = ({notes, openIsModal, deleteNote,}) => {
         if (!dates) {
             dates = ''
         }
-        const data = {
+        return {
             currentId: obj.id,
             imgCategory: obj.category,
             title: obj.title,
@@ -39,14 +45,17 @@ export const NotesTable = ({notes, openIsModal, deleteNote,}) => {
 
             },
         }
-        return data
-    }
 
-    for(let el of notes){
+    }
+if(!notes.length) {
+    let text = showArchive?'only archive':'not archive'
+
+    return <div> you have {text} notes <button data-set='archive-all' onClick={buttonCallback}>go out</button></div>
+}
+    for (let el of notes) {
         const newEl = createTableData(el)
         dataNotesTable.push(newEl)
     }
-
     return (
         <div>
             <TableContainer dataTable={dataNotesTable}/>

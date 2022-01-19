@@ -46,7 +46,7 @@ test('note should be added to notes', () => {
         content: `have to improve business solutions`,
         isArchive: false,
     }
-    const action = {type:'NOTES/ADD-NOTE', note: newNote}
+    const action = {type: 'NOTES/ADD-NOTE', note: newNote}
 
     const newState = notesReducer(state, action)
     expect(newState.notes.length).toBe(4)
@@ -58,7 +58,7 @@ test('note should be added to notes', () => {
 test('note should be deleted from state', () => {
 
 
-    const action = {type:'NOTES/DELETE-NOTE', id: 13}
+    const action = {type: 'NOTES/DELETE-NOTE', id: 13}
 
     const newState = notesReducer(state, action)
 
@@ -70,14 +70,14 @@ test('note should be deleted from state', () => {
 test('note should be correct update', () => {
 
     const updateBody = {
-            title: 'new title',
+        title: 'new title',
         created: '13.01.2022',
         category: 'idea',
         content: 'I’m gonna have a dentist appointment on the 3/5/2021, I moved it from 5/5/2021.Was updating 19.01.2022',
         isArchive: false,
     }
 
-    const action = {type:'NOTES/UPDATE-BODY-NOTE', payload:{id: 13, body: updateBody}}
+    const action = {type: 'NOTES/UPDATE-BODY-NOTE', payload: {id: 13, data: updateBody}}
 
     const newState = notesReducer(state, action)
 

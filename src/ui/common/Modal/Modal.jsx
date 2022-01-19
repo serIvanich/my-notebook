@@ -39,7 +39,7 @@ export const Modal = ({addNote, data, closeModal}) => {
     const submitForm = (values) => {
 
         addNote(values)
-        console.log(values)
+
         formik.resetForm()
 
     }
@@ -70,13 +70,13 @@ export const Modal = ({addNote, data, closeModal}) => {
                     />
                     {formik.touched.content && formik.errors.content &&
                     <div style={{color: 'red'}}>{formik.errors.content}</div>}
-                    <select placeholder='select category' name='category'
-                            className={s.selectForm} {...formik.getFieldProps('category')}>
+                    {!data?.id && <select placeholder='select category' name='category'
+                                         className={s.selectForm} {...formik.getFieldProps('category')}>
                         <option>task</option>
                         <option>random thought</option>
                         <option>idea</option>
                         <option>quote</option>
-                    </select>
+                    </select>}
                     <div className={s.checkboxForm}>
                         is archive this note <input name='isArchive'
                                                     type='checkbox'

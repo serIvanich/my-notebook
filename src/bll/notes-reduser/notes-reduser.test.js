@@ -53,6 +53,17 @@ test('note should be added to notes', () => {
     expect(state.notes.length).toBe(3)
     expect(newState.notes[3].id).toBe(22)
 })
+test('note should be deleted from state', () => {
+
+
+    const action = {type:'NOTES/DELETE-NOTE', id: 13}
+
+    const newState = notesReducer(state, action)
+
+    expect(newState.notes.length).toBe(2)
+    expect(state.notes.length).toBe(3)
+    expect(newState.notes[0].id).toBe(14)
+})
 
 
 

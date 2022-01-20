@@ -22,7 +22,7 @@ export const notes = [
         title: 'new feature',
         created: '13.01.2022',
         category: 'idea',
-        content: 'I’m gonna have a dentist appointment on the 3/5/2021, I moved it from 5/5/2021',
+        content: 'I’m gonna have a dentist appointment on the 3/05/2021, I moved it from 5/05/2021',
         isArchive: false,
 
     },

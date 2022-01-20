@@ -28,9 +28,11 @@ export const NotesTable = ({notes, openIsModal, changeArchive, deleteNote, showA
     }
 
     function createTableData(obj) {
-        let dates = obj.content.match(/\d{2}.\d{2}.\d{4}/g)
+        let dates = obj.content.match(/(\d{1,2}[-./]\d{2}[-./]\d{4})/g)
         if (!dates) {
             dates = ''
+        }else {
+            dates = dates.join(' ')
         }
         return {
             currentId: obj.id,
@@ -48,7 +50,7 @@ export const NotesTable = ({notes, openIsModal, changeArchive, deleteNote, showA
 
     }
 if(!notes.length) {
-    let text = showArchive?'only archive':'not archive'
+    let text = !showArchive?'only archive':'not archive'
 
     return <div> you have {text} notes <button data-set='archive-all' onClick={buttonCallback}>go out</button></div>
 }

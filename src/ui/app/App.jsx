@@ -12,6 +12,7 @@ import {initializeApp} from "../../bll/app-reducer/app-reducer";
 export const manufacturerID = () => Math.floor(Math.random() * 1000000)
 
 function App() {
+    console.log('pull request')
     const dispatch = useDispatch()
     const [showArchive, setShowArchive] = useState(false)
     const [isModal, setIsModal] = useState(false)

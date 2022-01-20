@@ -1,4 +1,5 @@
-import {getNotesApi} from "../../api/fail-api";
+import {notesAPI} from "../../api/fail-api";
+import {setAppError} from "../app-reducer/app-reducer";
 
 const GET_NOTES = 'NOTES/GET-NOTES'
 const UPDATE_BODY_NOTE = 'NOTES/UPDATE-BODY-NOTE'
@@ -26,7 +27,7 @@ export const notesReducer = (state = initialState, action) => {
         case UPDATE_BODY_NOTE:
             const updateNote = state.notes.map(note => note.id === action.payload.id
                 ? Object.assign(note, action.payload.data)
-                :note )
+                : note)
             return {
                 ...state,
                 notes: updateNote
@@ -54,7 +55,7 @@ export const action = {
     },
     updateNote: (id, data) => {
 
-        const payload = {id,data}
+        const payload = {id, data}
         return {type: UPDATE_BODY_NOTE, payload}
     },
     deleteNote: (id) => {
@@ -65,12 +66,11 @@ export const action = {
 export const getNotes = () => async (dispatch) => {
     try {
 
-        const data = await getNotesApi()
+        const data = await notesAPI.getNotes()
         dispatch(action.getNotes(data))
-
     } catch (e) {
-        console.log(e)
+        if (e.message) {
+            dispatch(setAppError(e.message))
+        }
     }
-
-
 }

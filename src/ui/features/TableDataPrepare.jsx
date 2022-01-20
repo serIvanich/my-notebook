@@ -1,12 +1,12 @@
 import React from "react";
-import s from './Table.module.css'
+import s from '../common/Table/Table.module.css'
 import {BiArchiveOut, BiPencil, BiTrashAlt} from "react-icons/bi";
 import {FcDecision, FcIdea, FcList, FcReddit} from "react-icons/fc";
-import {Table} from "./Table";
-import {manufacturerID} from "../../app/App";
+import {Table} from "../common/Table/Table";
+import {manufacturerID} from "../app/App";
 
 
-export const TableContainer = ({dataTable}) => {
+export const TableDataPrepare = React.memo(({dataTable}) => {
 
     let headerTable = []
 
@@ -104,4 +104,4 @@ export const TableContainer = ({dataTable}) => {
         <Table header={headerTable} content={content}/>
     )
 
-}
+})

@@ -1,7 +1,15 @@
-import {notes} from "./fail-state";
+import {notes} from "./response-notes";
 
-export const getNotesApi = () => {
+export const notesAPI = {
+    getNotes() {
+        return Promise.resolve(notes)
+    }
 
-    return Promise.resolve(notes)
 
+}
+
+export const appAPI = {
+    me () {
+        return Promise.resolve(true)
+    }
 }

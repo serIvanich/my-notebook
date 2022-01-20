@@ -1,8 +1,16 @@
 import React from "react";
-import {TableContainer} from "../common/Table/TableContainer";
+import {TableDataPrepare} from "./TableDataPrepare";
 
 
-export const NotesTable = ({notes, openIsModal, changeArchive, deleteNote, showArchive, showArchiveNotes,}) => {
+export const NotesTable = React.memo(({
+                                          notes,
+                                          openIsModal,
+                                          changeArchive,
+                                          deleteNote,
+                                          showArchive,
+                                          showArchiveNotes,
+                                          deleteAll,
+                                      }) => {
 
     const dataNotesTable = []
 
@@ -21,17 +29,16 @@ export const NotesTable = ({notes, openIsModal, changeArchive, deleteNote, showA
         } else if (datasetButton === 'archive-all') {
             showArchiveNotes()
         } else if (datasetButton === 'delete-all') {
-
+            deleteAll()
         }
-        console.log(e.currentTarget.dataset.set)
-        console.log(id)
+
     }
 
     function createTableData(obj) {
         let dates = obj.content.match(/(\d{1,2}[-./]\d{2}[-./]\d{4})/g)
         if (!dates) {
             dates = ''
-        }else {
+        } else {
             dates = dates.join(' ')
         }
         return {
@@ -49,18 +56,19 @@ export const NotesTable = ({notes, openIsModal, changeArchive, deleteNote, showA
         }
 
     }
-if(!notes.length) {
-    let text = !showArchive?'only archive':'not archive'
 
-    return <div> you have {text} notes <button data-set='archive-all' onClick={buttonCallback}>go out</button></div>
-}
+    if (!notes.length) {
+        let text = !showArchive ? 'only archive' : 'not archive'
+
+        return <div> you have {text} notes <button data-set='archive-all' onClick={buttonCallback}>go out</button></div>
+    }
     for (let el of notes) {
         const newEl = createTableData(el)
         dataNotesTable.push(newEl)
     }
     return (
         <div>
-            <TableContainer dataTable={dataNotesTable}/>
+            <TableDataPrepare dataTable={dataNotesTable}/>
         </div>
     )
-}
+})

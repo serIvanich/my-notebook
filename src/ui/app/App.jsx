@@ -4,9 +4,10 @@ import {Modal} from "../common/Modal/Modal";
 import {useEffect, useState} from "react";
 import {NotesTable} from "../features/NotesTable";
 import {useDispatch, useSelector} from "react-redux";
-import {action, getNotes} from "../../bll/notes-reduser/notes-reducer";
-import {getNotesSelector} from "../../bll/selectors";
+import {action} from "../../bll/notes-reducer/notes-reducer";
+import {getInitializedSelector, getNotesSelector} from "../../bll/selectors";
 import {Preloader} from "../common/preloader/Preloader";
+import {initializeApp} from "../../bll/app-reducer/app-reducer";
 
 export const manufacturerID = () => Math.floor(Math.random() * 1000000)
 
@@ -18,12 +19,13 @@ function App() {
     let modalData = []
     let tableNotes
     const notes = useSelector((state) => getNotesSelector(state))
+    const {isInitialized, error} = useSelector((state) => getInitializedSelector(state))
 
     useEffect(() => {
 
-            dispatch(getNotes())
+        dispatch(initializeApp())
 
-    }, [])
+    }, [dispatch])
 
     const closeModal = () => {
         setIsModal(false)
@@ -33,7 +35,6 @@ function App() {
         if (Number.isInteger(id)) {
             setCurrentNoteId(id)
         }
-
         setIsModal(true)
     }
 
@@ -66,9 +67,9 @@ function App() {
         dispatch(action.updateNote(id, data))
     }
     const changeArchive = (id) => {
-        if(showArchive){
+        if (showArchive) {
             updateNote(id, {isArchive: false})
-        }else {
+        } else {
             updateNote(id, {isArchive: true})
         }
     }
@@ -76,7 +77,11 @@ function App() {
         dispatch(action.deleteNote(id))
     }
     const deleteAll = () => {
-
+        const answer = prompt('Do you want to remove all notes when you click this button?' +
+            '\nIf you are accept them, please enter: YES')
+        if (answer.toLowerCase() === 'yes') {
+            alert('Sorry, but it is not possible in the moment)))')
+        }
     }
     const showArchiveNotes = () => {
         setShowArchive(!showArchive)
@@ -86,21 +91,24 @@ function App() {
         modalData = notes.find(n => n.id === currentNoteId)
     }
 
-    if(!notes.length) {
+    if (!isInitialized) {
         return <Preloader/>
-    } else {
-        if (showArchive){
-            tableNotes = notes.filter(note => note.isArchive === true)
-        }else {
-            tableNotes = notes.filter(note => note.isArchive === false)
-        }
     }
+    if (error) {
+        return <div>`${error}`</div>
+    }
+    if (showArchive && notes) {
+        tableNotes = notes.filter(note => note.isArchive === true)
+    } else {
+        tableNotes = notes.filter(note => note.isArchive === false)
+    }
+
 
     return (
         <div className={s.app}>
             <NotesTable notes={tableNotes} setCurrentNoteId={setCurrentNoteId}
                         openIsModal={openIsModal} deleteNote={deleteNote} changeArchive={changeArchive}
-                        showArchiveNotes={showArchiveNotes} showArchive={showArchive}/>
+                        showArchiveNotes={showArchiveNotes} showArchive={showArchive} deleteAll={deleteAll}/>
             <div className={s.buttonContainer}>
                 <button className={s.buttonModal} onClick={openIsModal}>Create New Note</button>
 

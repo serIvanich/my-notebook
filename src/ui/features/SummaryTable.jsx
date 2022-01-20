@@ -1,14 +1,14 @@
 import React from "react";
-import {TableContainer} from "../common/Table/TableContainer";
+import {TableDataPrepare} from "./TableDataPrepare";
 
-export const SummaryTable = ({notes}) => {
+export const SummaryTable = React.memo(({notes}) => {
     const summaryArr = []
 
-    function createSummaryData(obj) {
-        const isArchive = obj.isArchive
+    function createSummaryData(note) {
+        const isArchive = note.isArchive
         const resObj = {
-            imgCategory: obj.category,
-            category: obj.category,
+            imgCategory: note.category,
+            category: note.category,
             active: isArchive ? 0 : 1,
             archive: isArchive ? 1 : 0,
         }
@@ -23,11 +23,11 @@ export const SummaryTable = ({notes}) => {
 
     }
 
-    notes.forEach(obj => createSummaryData(obj))
+    notes.forEach(note => createSummaryData(note))
 
     return (
         <div>
-            <TableContainer dataTable={summaryArr}/>
+            <TableDataPrepare dataTable={summaryArr}/>
         </div>
     )
-}
+})

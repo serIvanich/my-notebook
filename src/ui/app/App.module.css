@@ -25,16 +25,18 @@
 
 @media screen and (max-width: 600px) {
     .app {
-margin: 20px 0;
+        margin: 20px 0;
         overflow-y: auto;
     }
-  .buttonContainer{
-    position: static;
-    display: flex;
-    justify-content: center;
-  }
+
+    .buttonContainer {
+        position: static;
+        display: flex;
+        justify-content: center;
+    }
+
     .buttonModal {
-      position: static;
+        position: static;
 
 
     }

@@ -1,6 +1,5 @@
 
-export const getNotesSelector = state =>{
+export const getNotesSelector = state => state.notes.notes
 
-    return state.notes.notes
-}
+export const getInitializedSelector = state =>state.app
 

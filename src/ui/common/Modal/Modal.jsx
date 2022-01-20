@@ -3,7 +3,7 @@ import s from './Modal.module.css'
 import {useFormik} from "formik";
 import {BiX} from "react-icons/bi";
 
-export const Modal = ({addNote, data, closeModal}) => {
+export const Modal = React.memo(({addNote, data, closeModal}) => {
 
     const initialCategory = data?.category ? data.category : 'task'
     const initialTitle = data?.title ? data.title : ''
@@ -22,9 +22,9 @@ export const Modal = ({addNote, data, closeModal}) => {
         const errors = {};
         if (!values.title) {
             errors.title = 'Required';
-        } else if (!/^[a-z A-Z]*$/i.test(values.title)) {
+        } else if (!/^[a-z.\s_\-0-9]*$/i.test(values.title)) {
             errors.title = 'Invalid title';
-        } else if (values.title.length > 20) {
+        } else if (values.title.length > 30) {
             errors.title = 'Invalid surname(not be more 20 letters)';
         }
         if (!values.content) {
@@ -71,7 +71,7 @@ export const Modal = ({addNote, data, closeModal}) => {
                     {formik.touched.content && formik.errors.content &&
                     <div style={{color: 'red'}}>{formik.errors.content}</div>}
                     {!data?.id && <select placeholder='select category' name='category'
-                                         className={s.selectForm} {...formik.getFieldProps('category')}>
+                                          className={s.selectForm} {...formik.getFieldProps('category')}>
                         <option>task</option>
                         <option>random thought</option>
                         <option>idea</option>
@@ -91,4 +91,4 @@ export const Modal = ({addNote, data, closeModal}) => {
         </div>
     )
 
-}
+})

@@ -1,5 +1,6 @@
 {
-  "name": "task_2",
+  "name": "my-notebook",
+  "homepage": "https://serivanich.github.io/my-notebook",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

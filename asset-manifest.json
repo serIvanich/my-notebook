@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/task_2/static/css/main.8a347b02.css",
-    "main.js": "/task_2/static/js/main.2a4c7555.js",
-    "static/js/787.7de118b7.chunk.js": "/task_2/static/js/787.7de118b7.chunk.js",
-    "static/media/preload.gif": "/task_2/static/media/preload.60f7b3a781ee8201c4fc.gif",
-    "index.html": "/task_2/index.html",
-    "main.8a347b02.css.map": "/task_2/static/css/main.8a347b02.css.map",
-    "main.2a4c7555.js.map": "/task_2/static/js/main.2a4c7555.js.map",
-    "787.7de118b7.chunk.js.map": "/task_2/static/js/787.7de118b7.chunk.js.map"
+    "main.css": "/my-notebook/static/css/main.76e99a07.css",
+    "main.js": "/my-notebook/static/js/main.9947e932.js",
+    "static/js/787.6fff297f.chunk.js": "/my-notebook/static/js/787.6fff297f.chunk.js",
+    "static/media/preload.gif": "/my-notebook/static/media/preload.60f7b3a781ee8201c4fc.gif",
+    "index.html": "/my-notebook/index.html",
+    "main.76e99a07.css.map": "/my-notebook/static/css/main.76e99a07.css.map",
+    "main.9947e932.js.map": "/my-notebook/static/js/main.9947e932.js.map",
+    "787.6fff297f.chunk.js.map": "/my-notebook/static/js/787.6fff297f.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.8a347b02.css",
-    "static/js/main.2a4c7555.js"
+    "static/css/main.76e99a07.css",
+    "static/js/main.9947e932.js"
   ]
 }
